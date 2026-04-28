@@ -124,13 +124,6 @@ export default function App() {
       />
 
       <div className="overlay">
-        <div className="top-ui">
-          <div>残り時間：{timeLeft.toFixed(1)}</div>
-          <div>
-            正解：{correctCount} / {CLEAR_COUNT}
-          </div>
-        </div>
-
         <div className="quiz-box">
           <p className="message">{message}</p>
 
