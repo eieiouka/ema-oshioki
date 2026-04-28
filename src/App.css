@@ -24,6 +24,17 @@ body {
   object-fit: cover;
 }
 
+@media (max-width: 600px) {
+  .chase-video {
+    width: 100vw;
+    height: auto;     /* ← 高さ固定しない */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain; /* ← はみ出さない */
+  }
+}
+
 .overlay {
   position: relative;
   z-index: 2;
