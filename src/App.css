@@ -24,14 +24,14 @@ body {
   object-fit: cover;
 }
 
-/* ▼ PC版（下に配置） */
+/* ▼ PC版（そのまま維持） */
 .overlay {
   position: relative;
   z-index: 2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* ← 下 */
+  justify-content: flex-end; /* 下配置 */
   align-items: center;
   padding: 20px;
   background: rgba(0, 0, 0, 0.25);
@@ -39,7 +39,7 @@ body {
 
 .quiz-box {
   width: min(440px, 92vw);
-  margin-bottom: 6vh; /* ← 下余白 */
+  margin-bottom: 6vh;
   padding: 20px 18px 24px;
   text-align: center;
   border-radius: 20px;
@@ -91,45 +91,33 @@ body {
   cursor: pointer;
 }
 
-/* ▼ スマホ版（上に配置） */
+/* ▼ スマホ版（配置だけ変更・サイズは触らない） */
 @media (max-width: 600px) {
   .game {
+    min-height: 100dvh;
     height: 100dvh;
   }
 
   .chase-video {
+    position: fixed;
     width: 100vw;
     height: auto;
-    top: 50%;
+    top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit: contain;
   }
 
   .overlay {
-    justify-content: flex-start; /* ← 上 */
+    min-height: 100dvh;
+    justify-content: flex-start; /* 上配置 */
     padding: 10px;
+    background: rgba(0, 0, 0, 0.25);
   }
 
   .quiz-box {
-    margin-top: 10px;   /* ← 上寄せ */
+    margin-top: 10px;
     margin-bottom: 0;
     width: min(360px, 92vw);
-    padding: 14px;
-    gap: 8px;
-  }
-
-  .kanji {
-    font-size: clamp(28px, 9vw, 48px);
-  }
-
-  .answer-input {
-    font-size: 18px;
-    padding: 10px;
-  }
-
-  .restart-button {
-    font-size: 15px;
-    padding: 10px 18px;
   }
 }
