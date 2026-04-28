@@ -102,7 +102,7 @@ body {
     position: fixed;
     width: 100vw;
     height: auto;
-    top: 45%; /* ← 58% から上げる */
+    top: 30%; /* ← 58% から上げる */
     left: 50%;
     transform: translate(-50%, -50%);
     object-fit: contain;
