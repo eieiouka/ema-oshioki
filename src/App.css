@@ -6,12 +6,13 @@ body {
   margin: 0;
   font-family: sans-serif;
   background: black;
+  overflow: hidden; /* ← スクロール自体を禁止 */
 }
 
 .game {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100dvh; /* ← スマホ対応 */
   overflow: hidden;
   background: black;
 }
@@ -24,81 +25,109 @@ body {
   object-fit: cover;
 }
 
+/* ▼ 全体固定 */
 .overlay {
-  position: relative;
+  position: fixed;
+  inset: 0;
   z-index: 2;
-  min-height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
+  padding: 16px;
   background: rgba(0, 0, 0, 0.25);
 }
 
-/* ▼ 上UIも少し小さく */
+/* ▼ 上UI */
 .top-ui {
   display: flex;
   justify-content: space-between;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   text-shadow: 0 2px 8px black;
 }
 
-/* ▼ コンパクト版 */
+/* ▼ 下UI（入力エリア） */
 .quiz-box {
-  width: min(440px, 92vw);
-  margin: 0 auto 6vh;
-  padding: 20px 18px 24px;
+  width: min(420px, 92vw);
+  margin: 0 auto;
+  padding: 16px;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+
+  /* ▼ キーボード対策 */
+  margin-bottom: calc(env(safe-area-inset-bottom) + 8px);
 }
 
 .message {
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 }
 
-/* ▼ 漢字小さく */
+/* ▼ 漢字（中央〜やや下） */
 .kanji {
-  font-size: clamp(40px, 10vw, 80px);
+  font-size: clamp(34px, 12vw, 64px);
   font-weight: 900;
-  margin: 0;
   line-height: 1.2;
 }
 
-/* ▼ 入力欄小さく */
+/* ▼ 入力欄 */
 .answer-input {
   width: 100%;
-  padding: 12px 14px;
-  font-size: 22px;
+  padding: 10px 12px;
+  font-size: 20px;
   text-align: center;
   border: 3px solid #222;
   border-radius: 12px;
   outline: none;
-  margin: 0;
 }
 
 .answer-input:focus {
   border-color: #ff4b7d;
 }
 
+/* ▼ ボタン */
 .restart-button {
-  margin-top: 10px;
-  padding: 12px 24px;
-  font-size: 18px;
+  margin-top: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
   font-weight: bold;
   border: none;
   border-radius: 999px;
   background: #ff4b7d;
   color: white;
   cursor: pointer;
+}
+
+/* ▼ スマホ最適化 */
+@media (max-width: 600px) {
+  .overlay {
+    padding: 12px;
+  }
+
+  .top-ui {
+    font-size: 14px;
+  }
+
+  .quiz-box {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .kanji {
+    font-size: clamp(32px, 11vw, 56px);
+  }
+
+  .answer-input {
+    font-size: 18px;
+  }
 }
