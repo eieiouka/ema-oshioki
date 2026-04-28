@@ -110,7 +110,9 @@ body {
     inset: auto;
     width: 100%;
     height: auto;
-    max-height: calc(100dvh - 135px);
+
+    max-height: calc(100dvh - 90px); /* ← ここだけ変更 */
+
     object-fit: contain;
     transform: none;
     top: auto;
@@ -123,33 +125,12 @@ body {
     min-height: auto;
     flex: 0 0 auto;
     justify-content: flex-start;
-    padding: 0;
+    padding: 3px;
     background: transparent;
   }
 
   .quiz-box {
-    margin: 0 auto;
+    margin: 0 auto 2px;
     width: min(360px, 92vw);
-    padding: 8px 12px 10px;
-    gap: 6px;
-  }
-
-  .message {
-    font-size: 13px;
-  }
-
-  .kanji {
-    font-size: clamp(32px, 9vw, 48px);
-  }
-
-  .answer-input {
-    padding: 8px 10px;
-    font-size: 18px;
-  }
-
-  .restart-button {
-    margin-top: 4px;
-    padding: 8px 16px;
-    font-size: 15px;
   }
 }
