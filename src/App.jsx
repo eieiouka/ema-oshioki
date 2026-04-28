@@ -17,6 +17,22 @@ const questions = [
   { kanji: "罵詈雑言", yomi: "ばりぞうごん" },
   { kanji: "喚く", yomi: "わめく" },
   { kanji: "煩い", yomi: "うるさい" },
+
+  { kanji: "小賢しい", yomi: "こざかしい" },
+  { kanji: "慟哭", yomi: "どうこく" },
+  { kanji: "希う", yomi: "こいねがう" },
+  { kanji: "殺める", yomi: "あやめる" },
+  { kanji: "潰える", yomi: "ついえる" },
+  { kanji: "天誅", yomi: "てんちゅう" },
+  { kanji: "讐", yomi: "あだ" },
+  { kanji: "計える", yomi: "かぞえる" },
+  { kanji: "訃報", yomi: "ふほう" },
+  { kanji: "報いる", yomi: "むくいる" },
+  { kanji: "抹消", yomi: "まっしょう" },
+  { kanji: "虐待", yomi: "ぎゃくたい" },
+  { kanji: "害う", yomi: "そこなう" },
+  { kanji: "交尾む", yomi: "つるむ" },
+  { kanji: "愚鈍", yomi: "ぐどん" },
 ];
 
 const GAME_TIME = 28.3;
