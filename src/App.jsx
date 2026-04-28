@@ -2,18 +2,28 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 
 const questions = [
-  { kanji: "桜", yomi: "さくら" },
-  { kanji: "羽", yomi: "はね" },
-  { kanji: "裁判", yomi: "さいばん" },
-  { kanji: "魔女", yomi: "まじょ" },
-  { kanji: "処刑", yomi: "しょけい" },
+  { kanji: "拷問", yomi: "ごうもん" },
+  { kanji: "吐血", yomi: "とけつ" },
+  { kanji: "虐げる", yomi: "しいたげる" },
+  { kanji: "小聡明い", yomi: "あざとい" },
+  { kanji: "小童", yomi: "こわっぱ" },
+  { kanji: "命乞い", yomi: "いのちごい" },
+  { kanji: "足掻く", yomi: "あがく" },
+  { kanji: "鏖殺", yomi: "おうさつ" },
+  { kanji: "拘留", yomi: "こうりゅう" },
+  { kanji: "吼える", yomi: "ほえる" },
+  { kanji: "嫌悪", yomi: "けんお" },
+  { kanji: "屑", yomi: "くず" },
+  { kanji: "罵詈雑言", yomi: "ばりぞうごん" },
+  { kanji: "喚く", yomi: "わめく" },
+  { kanji: "煩い", yomi: "うるさい" },
 ];
 
 const GAME_TIME = 28.3;
-const CLEAR_COUNT = 3;
+const CLEAR_COUNT = 10;
 
-function getRandomQuestion(excludeKanji = "") {
-  const pool = questions.filter((q) => q.kanji !== excludeKanji);
+function getRandomQuestion(usedKanjis = []) {
+  const pool = questions.filter((q) => !usedKanjis.includes(q.kanji));
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -25,6 +35,7 @@ export default function App() {
   const videoRef = useRef(null);
 
   const [question, setQuestion] = useState(() => getRandomQuestion());
+  const [usedKanjis, setUsedKanjis] = useState([]);
   const [answer, setAnswer] = useState("");
   const [isComposing, setIsComposing] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
@@ -49,7 +60,10 @@ export default function App() {
   }
 
   function startGame() {
-    setQuestion(getRandomQuestion());
+    const firstQuestion = getRandomQuestion();
+
+    setQuestion(firstQuestion);
+    setUsedKanjis([firstQuestion.kanji]);
     setAnswer("");
     setIsComposing(false);
     setCorrectCount(0);
@@ -61,7 +75,6 @@ export default function App() {
     }, 0);
   }
 
-  // ▼ タイマー（0.1秒刻み）
   useEffect(() => {
     if (status !== "playing") return;
 
@@ -81,7 +94,6 @@ export default function App() {
     return () => clearInterval(timer);
   }, [status]);
 
-  // ▼ 正解判定
   useEffect(() => {
     if (isComposing) return;
     if (status !== "playing") return;
@@ -95,16 +107,22 @@ export default function App() {
       if (nextCount >= CLEAR_COUNT) {
         setStatus("clear");
 
-        // ★ クリア時だけ動画停止
         const video = videoRef.current;
         if (video) {
           video.pause();
         }
-      } else {
-        setQuestion(getRandomQuestion(question.kanji));
+
+        return;
+      }
+
+      const nextQuestion = getRandomQuestion(usedKanjis);
+
+      if (nextQuestion) {
+        setQuestion(nextQuestion);
+        setUsedKanjis((prev) => [...prev, nextQuestion.kanji]);
       }
     }
-  }, [answer, question, correctCount, isComposing, status]);
+  }, [answer, question, correctCount, isComposing, status, usedKanjis]);
 
   const message = useMemo(() => {
     if (status === "ready") return "スタートを押して開始";
