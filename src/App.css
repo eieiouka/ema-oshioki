@@ -130,7 +130,15 @@ body {
   }
 
   .quiz-box {
-    margin: 0 auto 2px;
-    width: min(360px, 92vw);
+    padding: 12px 16px 14px; /* ← 少しだけ圧縮 */
+    gap: 8px;               /* ← 間隔を軽く詰める */
+  }
+
+  .kanji {
+    line-height: 1.1; /* ← 縦圧縮 */
+  }
+
+  .answer-input {
+    padding: 10px 12px; /* ← 少しだけ短く */
   }
 }
