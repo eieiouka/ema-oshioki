@@ -11,7 +11,7 @@ const easyWords = [
   { kanji: "凶行", yomi: "きょうこう" },
   { kanji: "狡猾", yomi: "こうかつ" },
   { kanji: "押圧", yomi: "おうあつ" },
-  { kanji: "汚らわしい", yomi: "汚らわしい" },
+  { kanji: "汚らわしい", yomi: "けがらわしい" },
   { kanji: "寄生虫", yomi: "きせいちゅう" },
   { kanji: "愚鈍", yomi: "ぐどん" },
   { kanji: "脆弱", yomi: "ぜいじゃく" },
