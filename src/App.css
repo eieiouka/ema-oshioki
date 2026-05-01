@@ -24,13 +24,14 @@ body {
   object-fit: cover;
 }
 
+/* ▼ PC版（そのまま維持） */
 .overlay {
   position: relative;
   z-index: 2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: flex-end; /* 下配置 */
   align-items: center;
   padding: 20px;
   background: rgba(0, 0, 0, 0.25);
@@ -90,7 +91,7 @@ body {
   cursor: pointer;
 }
 
-/* ▼ 難易度ボタン */
+/* ▼ 難易度ボタン（追加分だけ） */
 .difficulty-buttons {
   display: flex;
   gap: 8px;
@@ -112,4 +113,60 @@ body {
 .difficulty-buttons button.active {
   background: #222;
   color: white;
+}
+
+/* ▼ スマホ版（配置だけ変更・サイズは触らない） */
+@media (max-width: 600px) {
+  body {
+    overflow: hidden;
+  }
+
+  .game {
+    height: 100dvh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .overlay {
+    position: relative;
+    order: 1;
+    width: 100%;
+    min-height: auto;
+    flex: 0 0 auto;
+    justify-content: flex-start;
+    padding: 3px;
+    background: transparent;
+  }
+
+  .quiz-box {
+    margin: 0 auto;
+    width: min(360px, 92vw);
+    padding: 12px 16px 14px;
+    gap: 8px;
+  }
+
+  .kanji {
+    line-height: 1.1;
+  }
+
+  .answer-input {
+    padding: 10px 12px;
+  }
+
+  .chase-video {
+    position: relative;
+    order: 2;
+    inset: auto;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: calc(100dvh - 150px);
+    object-fit: contain;
+    transform: none;
+    top: auto;
+    left: auto;
+    margin-top: 0;
+  }
 }
