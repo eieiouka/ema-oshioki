@@ -1,0 +1,25 @@
+const easyWords = [
+  { kanji: "拷問", yomi: "ごうもん"},
+  { kanji: "発狂", yomi: "はっきょう" },
+  { kanji: "絞殺", yomi: "こうさつ" },
+  { kanji: "小賢しい", yomi: "こざかしい" },
+  { kanji: "屑", yomi: "くず" },
+  { kanji: "粉砕", yomi: "ふんさい" },
+  { kanji: "仇なす", yomi: "あだなす" },
+  { kanji: "陥れる", yomi: "おとしいれる" },
+  { kanji: "憎悪", yomi: "ぞうお" },
+  { kanji: "凶行", yomi: "きょうこう" },
+  { kanji: "狡猾", yomi: "こうかつ" },
+  { kanji: "押圧", yomi: "おうあつ" },
+  { kanji: "汚らわしい", yomi: "汚らわしい" },
+  { kanji: "寄生虫", yomi: "きせいちゅう" },
+  { kanji: "愚鈍", yomi: "ぐどん" },
+  { kanji: "脆弱", yomi: "ぜいじゃく" },
+  { kanji: "残虐", yomi: "ざんぎゃく" },
+  { kanji: "束縛", yomi: "そくばく" },
+  { kanji: "乞食", yomi: "こじき" },
+  { kanji: "訃報", yomi: "ふほう" },
+  { kanji: "饒舌", yomi: "じょうぜつ" },
+];
+
+export default easyWords;

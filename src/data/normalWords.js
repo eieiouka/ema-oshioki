@@ -1,0 +1,25 @@
+const normalWords = [
+  { kanji: "唆す", yomi: "そそのかす" },
+  { kanji: "殺める", yomi: "あやめる" },
+  { kanji: "破廉恥", yomi: "はれんち" },
+  { kanji: "天誅", yomi: "てんちゅう" },
+  { kanji: "嗜虐", yomi: "しぎゃく" },
+  { kanji: "煩い", yomi: "うるさい" },
+  { kanji: "罵詈雑言", yomi: "ばりぞうごん" },
+  { kanji: "嬲る", yomi: "なぶる" },
+  { kanji: "鳩尾", yomi: "みぞおち" },
+  { kanji: "魑魅魍魎", yomi: "ちみもうりょう" },
+  { kanji: "擽る", yomi: "くすぐる" },
+  { kanji: "雪莉", yomi: "しぇりー" },
+  { kanji: "狼狽える", yomi: "うろたえる" },
+  { kanji: "痴か", yomi: "おろか" },
+  { kanji: "蛇蝎", yomi: "だかつ" },
+  { kanji: "強ち", yomi: "あながち" },
+  { kanji: "態と", yomi: "わざと" },
+  { kanji: "贔屓", yomi: "ひいき" },
+  { kanji: "骸", yomi: "むくろ" },
+  { kanji: "貶す", yomi: "けなす" },
+  { kanji: "更迭", yomi: "こうてつ" },
+];
+
+export default normalWords;

@@ -1,0 +1,25 @@
+const hardWords = [
+  { kanji: "鏖殺", yomi: "おうさつ" },
+  { kanji: "計える", yomi: "かぞえる" },
+  { kanji: "小聡明い", yomi: "あざとい" },
+  { kanji: "希う", yomi: "こいねがう" },
+  { kanji: "碍げる", yomi: "さまたげる" },
+  { kanji: "御刑", yomi: "おしおき" },
+  { kanji: "賽子", yomi: "さいころ" },
+  { kanji: "交尾む", yomi: "つるむ" },
+  { kanji: "蛞蝓", yomi: "なめくじ" },
+  { kanji: "姦しい", yomi: "かしましい" },
+  { kanji: "齷齪", yomi: "あくせく" },
+  { kanji: "阿る", yomi: "おもねる" },
+  { kanji: "諂う", yomi: "へつらう" },
+  { kanji: "害なう", yomi: "そこなう" },
+  { kanji: "暴か", yomi: "にわか" },
+  { kanji: "転寝", yomi: "うたたね" },
+  { kanji: "徐に", yomi: "おもむろに" },
+  { kanji: "何方道", yomi: "どっちみち" },
+  { kanji: "紙縒", yomi: "こより" },
+  { kanji: "亡げる", yomi: "にげる" },
+  { kanji: "蔑する", yomi: "なみする" },
+];
+
+export default hardWords;

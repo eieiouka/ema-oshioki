@@ -1,45 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 
-const questions = [
-  { kanji: "拷問", yomi: "ごうもん" },
-  { kanji: "吐血", yomi: "とけつ" },
-  { kanji: "虐げる", yomi: "しいたげる" },
-  { kanji: "小聡明い", yomi: "あざとい" },
-  { kanji: "小童", yomi: "こわっぱ" },
-  { kanji: "命乞い", yomi: "いのちごい" },
-  { kanji: "足掻く", yomi: "あがく" },
-  { kanji: "鏖殺", yomi: "おうさつ" },
-  { kanji: "拘留", yomi: "こうりゅう" },
-  { kanji: "吼える", yomi: "ほえる" },
-  { kanji: "嫌悪", yomi: "けんお" },
-  { kanji: "屑", yomi: "くず" },
-  { kanji: "罵詈雑言", yomi: "ばりぞうごん" },
-  { kanji: "喚く", yomi: "わめく" },
-  { kanji: "煩い", yomi: "うるさい" },
-
-  { kanji: "小賢しい", yomi: "こざかしい" },
-  { kanji: "慟哭", yomi: "どうこく" },
-  { kanji: "希う", yomi: "こいねがう" },
-  { kanji: "殺める", yomi: "あやめる" },
-  { kanji: "潰える", yomi: "ついえる" },
-  { kanji: "天誅", yomi: "てんちゅう" },
-  { kanji: "讐", yomi: "あだ" },
-  { kanji: "計える", yomi: "かぞえる" },
-  { kanji: "訃報", yomi: "ふほう" },
-  { kanji: "報いる", yomi: "むくいる" },
-  { kanji: "抹消", yomi: "まっしょう" },
-  { kanji: "虐待", yomi: "ぎゃくたい" },
-  { kanji: "害う", yomi: "そこなう" },
-  { kanji: "交尾む", yomi: "つるむ" },
-  { kanji: "愚鈍", yomi: "ぐどん" },
-];
+import easyWords from "./data/easyWords";
+import normalWords from "./data/normalWords";
+import hardWords from "./data/hardWords";
 
 const GAME_TIME = 28.3;
 const CLEAR_COUNT = 10;
 
-function getRandomQuestion(usedKanjis = []) {
-  const pool = questions.filter((q) => !usedKanjis.includes(q.kanji));
+const wordGroups = {
+  easy: easyWords,
+  normal: normalWords,
+  hard: hardWords,
+};
+
+function getRandomQuestion(words, usedKanjis = []) {
+  const pool = words.filter((q) => !usedKanjis.includes(q.kanji));
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
@@ -50,7 +26,9 @@ function normalizeHiragana(value) {
 export default function App() {
   const videoRef = useRef(null);
 
-  const [question, setQuestion] = useState(() => getRandomQuestion());
+  const [difficulty, setDifficulty] = useState("normal");
+
+  const [question, setQuestion] = useState(null);
   const [usedKanjis, setUsedKanjis] = useState([]);
   const [answer, setAnswer] = useState("");
   const [isComposing, setIsComposing] = useState(false);
@@ -76,7 +54,8 @@ export default function App() {
   }
 
   function startGame() {
-    const firstQuestion = getRandomQuestion();
+    const words = wordGroups[difficulty];
+    const firstQuestion = getRandomQuestion(words);
 
     setQuestion(firstQuestion);
     setUsedKanjis([firstQuestion.kanji]);
@@ -89,6 +68,22 @@ export default function App() {
     setTimeout(() => {
       playVideoFromStart();
     }, 0);
+  }
+
+  // ★ 追加：リセット（難易度選択に戻る）
+  function resetGame() {
+    setStatus("ready");
+    setQuestion(null);
+    setUsedKanjis([]);
+    setAnswer("");
+    setCorrectCount(0);
+    setTimeLeft(GAME_TIME);
+
+    const video = videoRef.current;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
   }
 
   useEffect(() => {
@@ -113,6 +108,7 @@ export default function App() {
   useEffect(() => {
     if (isComposing) return;
     if (status !== "playing") return;
+    if (!question) return;
 
     if (answer === question.yomi) {
       const nextCount = correctCount + 1;
@@ -124,21 +120,20 @@ export default function App() {
         setStatus("clear");
 
         const video = videoRef.current;
-        if (video) {
-          video.pause();
-        }
+        if (video) video.pause();
 
         return;
       }
 
-      const nextQuestion = getRandomQuestion(usedKanjis);
+      const words = wordGroups[difficulty];
+      const nextQuestion = getRandomQuestion(words, usedKanjis);
 
       if (nextQuestion) {
         setQuestion(nextQuestion);
         setUsedKanjis((prev) => [...prev, nextQuestion.kanji]);
       }
     }
-  }, [answer, question, correctCount, isComposing, status, usedKanjis]);
+  }, [answer, question, correctCount, isComposing, status, usedKanjis, difficulty]);
 
   const message = useMemo(() => {
     if (status === "ready") return "スタートを押して開始";
@@ -161,13 +156,40 @@ export default function App() {
         <div className="quiz-box">
           <p className="message">{message}</p>
 
+          {/* スタート前（難易度選択） */}
           {status === "ready" && (
-            <button className="restart-button" onClick={startGame}>
-              スタート
-            </button>
+            <>
+              <div className="difficulty-buttons">
+                <button
+                  className={difficulty === "easy" ? "active" : ""}
+                  onClick={() => setDifficulty("easy")}
+                >
+                  易
+                </button>
+
+                <button
+                  className={difficulty === "normal" ? "active" : ""}
+                  onClick={() => setDifficulty("normal")}
+                >
+                  普通
+                </button>
+
+                <button
+                  className={difficulty === "hard" ? "active" : ""}
+                  onClick={() => setDifficulty("hard")}
+                >
+                  難
+                </button>
+              </div>
+
+              <button className="restart-button" onClick={startGame}>
+                スタート
+              </button>
+            </>
           )}
 
-          {isPlaying && (
+          {/* プレイ中 */}
+          {isPlaying && question && (
             <>
               <div className="kanji">{question.kanji}</div>
 
@@ -184,9 +206,7 @@ export default function App() {
 
                   setAnswer(normalizeHiragana(value));
                 }}
-                onCompositionStart={() => {
-                  setIsComposing(true);
-                }}
+                onCompositionStart={() => setIsComposing(true)}
                 onCompositionEnd={(e) => {
                   setIsComposing(false);
                   setAnswer(normalizeHiragana(e.currentTarget.value));
@@ -201,8 +221,9 @@ export default function App() {
             </>
           )}
 
+          {/* 終了 → 難易度選択へ戻る */}
           {isFinished && (
-            <button className="restart-button" onClick={startGame}>
+            <button className="restart-button" onClick={resetGame}>
               もう一度
             </button>
           )}
